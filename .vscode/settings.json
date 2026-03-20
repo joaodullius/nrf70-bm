@@ -1,0 +1,6 @@
+{
+    "iis.configDir": "",
+    "nrf-connect.applications": [
+        "${workspaceFolder}\\samples\\scan_bm"
+    ]
+}
