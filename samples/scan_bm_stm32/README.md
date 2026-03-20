@@ -122,13 +122,38 @@ nrf70_bm_lib/source/common/nrf70_bm_core.c
 nrf70_bm_lib/source/system/nrf70_bm_lib.c   (and any other .c in system/)
 ```
 
-**nrf_wifi OS-agnostic driver sources** (all `.c` under):
+**nrf_wifi OS-agnostic driver sources** — exact file list for scan-only mode
+(do NOT use wildcards; files in `system/tx.c`, `fmac_peer.c`, `radio_test/`,
+etc. require `NRF70_STA_MODE` / `NRF70_DATA_TX` and must NOT be included):
+
+Common files (always required):
 ```
-nrf_wifi/fw_if/umac_if/src/
-nrf_wifi/hal/src/
-nrf_wifi/lmac_if/src/
-nrf_wifi/utils/src/
-nrf_wifi/os_if/src/
+nrf_wifi/os_if/src/osal.c
+nrf_wifi/utils/src/list.c
+nrf_wifi/utils/src/queue.c
+nrf_wifi/utils/src/util.c
+nrf_wifi/hw_if/hal/src/common/hal_api_common.c
+nrf_wifi/hw_if/hal/src/common/hal_fw_patch_loader.c
+nrf_wifi/hw_if/hal/src/common/hal_interrupt.c
+nrf_wifi/hw_if/hal/src/common/hal_mem.c
+nrf_wifi/hw_if/hal/src/common/hal_reg.c
+nrf_wifi/hw_if/hal/src/common/hpqm.c
+nrf_wifi/hw_if/hal/src/common/pal.c
+nrf_wifi/bus_if/bal/src/bal.c
+nrf_wifi/bus_if/bus/qspi/src/qspi.c
+nrf_wifi/fw_if/umac_if/src/common/fmac_cmd_common.c
+nrf_wifi/fw_if/umac_if/src/common/fmac_api_common.c
+nrf_wifi/fw_if/umac_if/src/common/fmac_util.c
+```
+
+Scan-only specific files:
+```
+nrf_wifi/fw_if/umac_if/src/system/rx.c
+nrf_wifi/fw_if/umac_if/src/system/fmac_vif.c
+nrf_wifi/fw_if/umac_if/src/system/fmac_api.c
+nrf_wifi/fw_if/umac_if/src/system/fmac_cmd.c
+nrf_wifi/fw_if/umac_if/src/system/fmac_event.c
+nrf_wifi/hw_if/hal/src/system/hal_api.c
 ```
 
 **Replace generated main.c** with:

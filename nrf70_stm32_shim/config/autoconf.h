@@ -13,9 +13,16 @@
 #ifndef __NRF70_AUTOCONF_H__
 #define __NRF70_AUTOCONF_H__
 
-/* Operation mode: scan only */
+/* =========================================================================
+ * Operation mode
+ * ========================================================================= */
 #define CONFIG_NRF70_BM_SCAN_ONLY         1
+/* Driver core checks NRF70_SCAN_ONLY (no CONFIG_ prefix) */
+#define NRF70_SCAN_ONLY
 
+/* =========================================================================
+ * Board / bus
+ * ========================================================================= */
 /* Board type: custom (user must supply TX power ceiling header) */
 #define CONFIG_NRF70_BOARD_TYPE_CUSTOM    1
 
@@ -25,33 +32,126 @@
 /* MAC address source: use OTP-programmed MAC */
 #define CONFIG_NRF70_OTP_MAC_ADDRESS      1
 
-/* Low-power mode: disabled initially for simplicity */
+/* =========================================================================
+ * Low-power mode — disabled initially for simplicity
+ * ========================================================================= */
 /* #define CONFIG_NRF_WIFI_LOW_POWER      1 */
 
-/* Work queue pool size */
+/* =========================================================================
+ * Work queue / timer pool
+ * ========================================================================= */
 #define CONFIG_NRF70_WORKQ_MAX_ITEMS      10
-
-/* Maximum number of software timers */
 #define CONFIG_NRF70_MAX_TIMERS           8
 
-/* PCB loss and antenna gain (2.4 GHz) — update with measured values */
+/* =========================================================================
+ * RX buffer / TX token sizing
+ * These are passed by CMakeLists.txt as bare (non-CONFIG_) defines.
+ * Defaults match nrf70_bm_lib/Kconfig and nrf_wifi/Makefile.
+ * ========================================================================= */
+#define NRF70_RX_NUM_BUFS                 3
+#define NRF70_MAX_TX_TOKENS              10
+#define NRF70_RX_MAX_DATA_SIZE         1600
+#define NRF70_MAX_TX_PENDING_QLEN        18
+#define NRF70_RPU_PS_IDLE_TIMEOUT_MS     10
+
+/* =========================================================================
+ * PCB loss and antenna gain
+ * CONFIG_* versions kept for nrf70_bm_lib; bare versions for nrf_wifi core.
+ * Update both with measured board values.
+ * ========================================================================= */
+/* 2.4 GHz */
 #define CONFIG_NRF70_PCB_LOSS_2G          0
 #define CONFIG_NRF70_ANT_GAIN_2G          0
+#define NRF70_PCB_LOSS_2G                 0
+#define NRF70_ANT_GAIN_2G                 0
 
-/* PCB loss and antenna gain (5 GHz bands) */
+/* 5 GHz */
 #define CONFIG_NRF70_PCB_LOSS_5G_BAND1    0
 #define CONFIG_NRF70_PCB_LOSS_5G_BAND2    0
 #define CONFIG_NRF70_PCB_LOSS_5G_BAND3    0
-#define CONFIG_NRF70_ANT_GAIN_5G_BAND1   0
-#define CONFIG_NRF70_ANT_GAIN_5G_BAND2   0
-#define CONFIG_NRF70_ANT_GAIN_5G_BAND3   0
+#define CONFIG_NRF70_ANT_GAIN_5G_BAND1    0
+#define CONFIG_NRF70_ANT_GAIN_5G_BAND2    0
+#define CONFIG_NRF70_ANT_GAIN_5G_BAND3    0
+#define NRF70_PCB_LOSS_5G_BAND1           0
+#define NRF70_PCB_LOSS_5G_BAND2           0
+#define NRF70_PCB_LOSS_5G_BAND3           0
+#define NRF70_ANT_GAIN_5G_BAND1           0
+#define NRF70_ANT_GAIN_5G_BAND2           0
+#define NRF70_ANT_GAIN_5G_BAND3           0
 
-/* Regulatory domain */
+/* =========================================================================
+ * Band edge backoffs — all 0 for custom board (tune with measurements)
+ * ========================================================================= */
+/* 2.4 GHz */
+#define NRF70_BAND_2G_LOWER_EDGE_BACKOFF_DSSS  0
+#define NRF70_BAND_2G_LOWER_EDGE_BACKOFF_HT    0
+#define NRF70_BAND_2G_LOWER_EDGE_BACKOFF_HE    0
+#define NRF70_BAND_2G_UPPER_EDGE_BACKOFF_DSSS  0
+#define NRF70_BAND_2G_UPPER_EDGE_BACKOFF_HT    0
+#define NRF70_BAND_2G_UPPER_EDGE_BACKOFF_HE    0
+
+/* 5 GHz UNII-1 */
+#define NRF70_BAND_UNII_1_LOWER_EDGE_BACKOFF_HT  0
+#define NRF70_BAND_UNII_1_LOWER_EDGE_BACKOFF_HE  0
+#define NRF70_BAND_UNII_1_UPPER_EDGE_BACKOFF_HT  0
+#define NRF70_BAND_UNII_1_UPPER_EDGE_BACKOFF_HE  0
+
+/* 5 GHz UNII-2A */
+#define NRF70_BAND_UNII_2A_LOWER_EDGE_BACKOFF_HT 0
+#define NRF70_BAND_UNII_2A_LOWER_EDGE_BACKOFF_HE 0
+#define NRF70_BAND_UNII_2A_UPPER_EDGE_BACKOFF_HT 0
+#define NRF70_BAND_UNII_2A_UPPER_EDGE_BACKOFF_HE 0
+
+/* 5 GHz UNII-2C */
+#define NRF70_BAND_UNII_2C_LOWER_EDGE_BACKOFF_HT 0
+#define NRF70_BAND_UNII_2C_LOWER_EDGE_BACKOFF_HE 0
+#define NRF70_BAND_UNII_2C_UPPER_EDGE_BACKOFF_HT 0
+#define NRF70_BAND_UNII_2C_UPPER_EDGE_BACKOFF_HE 0
+
+/* 5 GHz UNII-3 */
+#define NRF70_BAND_UNII_3_LOWER_EDGE_BACKOFF_HT  0
+#define NRF70_BAND_UNII_3_LOWER_EDGE_BACKOFF_HE  0
+#define NRF70_BAND_UNII_3_UPPER_EDGE_BACKOFF_HT  0
+#define NRF70_BAND_UNII_3_UPPER_EDGE_BACKOFF_HE  0
+
+/* 5 GHz UNII-4 */
+#define NRF70_BAND_UNII_4_LOWER_EDGE_BACKOFF_HT  0
+#define NRF70_BAND_UNII_4_LOWER_EDGE_BACKOFF_HE  0
+#define NRF70_BAND_UNII_4_UPPER_EDGE_BACKOFF_HT  0
+#define NRF70_BAND_UNII_4_UPPER_EDGE_BACKOFF_HE  0
+
+/* =========================================================================
+ * Wi-Fi subsystem runtime parameters
+ * ========================================================================= */
+/* AP dead-detect timeout in seconds (default 20, range 1–30) */
+#define NRF_WIFI_AP_DEAD_DETECT_TIMEOUT          20
+
+/* Scan BSS display limit: 250 for scan-only mode (150 for full mode) */
+#define NRF_WIFI_DISPLAY_SCAN_BSS_LIMIT         250
+
+/* Power-save recovery active timeout in ms */
+#define NRF_WIFI_RPU_RECOVERY_PS_ACTIVE_TIMEOUT_MS  50000
+
+/* Minimum time before RPU may enter sleep (ms) */
+#define NRF_WIFI_RPU_MIN_TIME_TO_ENTER_SLEEP_MS  1000
+
+/* Use interrupt-based power-save exit strategy */
+#define NRF_WIFI_PS_INT_PS                        1
+
+/* =========================================================================
+ * Regulatory domain
+ * ========================================================================= */
 #define CONFIG_NRF_WIFI_2G_BAND           1
 
-/* Log level: 0=off 1=err 2=wrn 3=inf 4=dbg */
+/* =========================================================================
+ * Log level: 0=off 1=err 2=wrn 3=inf 4=dbg
+ * ========================================================================= */
 #define CONFIG_NRF70_BM_LOG_LEVEL         3
+/* Driver core log level (1=errors, matches err-only default) */
+#define WIFI_NRF70_LOG_LEVEL              1
 
-/* Heap: STM32 newlib heap is used (malloc/free) */
+/* =========================================================================
+ * Heap: STM32 newlib heap is used (malloc/free)
+ * ========================================================================= */
 
 #endif /* __NRF70_AUTOCONF_H__ */
